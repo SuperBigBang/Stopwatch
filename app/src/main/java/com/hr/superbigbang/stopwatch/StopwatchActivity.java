@@ -26,6 +26,18 @@ public class StopwatchActivity extends AppCompatActivity {
         savedInstanceState.putInt("seconds", seconds);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+      //  System.out.println("Стала видимой для пользователя");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+     //   System.out.println("Скрылся");
+    }
+
     public void onClickStartb(View view) {
         running = true;
     }
@@ -52,8 +64,8 @@ public class StopwatchActivity extends AppCompatActivity {
                 timeView.setText(time);
                 if (running) {
                     seconds++;
-                    System.out.println("still running");
-                } else System.out.println("waiting for start timer");
+                //    System.out.println("still running");
+                } //else System.out.println("waiting for start timer");
                 handler.postDelayed(this, 1000);
             }
         });
