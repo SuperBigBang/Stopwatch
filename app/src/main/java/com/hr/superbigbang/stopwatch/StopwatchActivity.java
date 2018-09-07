@@ -13,7 +13,17 @@ public class StopwatchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stopwatch);
+        if (savedInstanceState != null) {
+            running = savedInstanceState.getBoolean("running");
+            seconds = savedInstanceState.getInt("seconds");
+        }
         runTimer();
+    }
+
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean("running", running);
+        savedInstanceState.putInt("seconds", seconds);
     }
 
     public void onClickStartb(View view) {
