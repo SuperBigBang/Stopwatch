@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class StopwatchActivity extends AppCompatActivity {
     private boolean running = false;
     private int seconds = 0;
+    private boolean wasRunning = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,6 +17,7 @@ public class StopwatchActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             running = savedInstanceState.getBoolean("running");
             seconds = savedInstanceState.getInt("seconds");
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
         }
         runTimer();
     }
@@ -24,17 +26,34 @@ public class StopwatchActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putBoolean("running", running);
         savedInstanceState.putInt("seconds", seconds);
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        wasRunning=running;
+        running=false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (wasRunning) {running=true;}
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        if (wasRunning) {running=true;}
       //  System.out.println("Стала видимой для пользователя");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        wasRunning=running;
+        running=false;
      //   System.out.println("Скрылся");
     }
 
