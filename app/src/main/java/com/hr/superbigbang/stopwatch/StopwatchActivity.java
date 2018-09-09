@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StopwatchActivity extends AppCompatActivity {
     private boolean running = false;
@@ -32,33 +33,41 @@ public class StopwatchActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        wasRunning=running;
-        running=false;
+        wasRunning = running;
+        running = false;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (wasRunning) {running=true;}
+        if (wasRunning) {
+            running = true;
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (wasRunning) {running=true;}
-      //  System.out.println("Стала видимой для пользователя");
+        if (wasRunning) {
+            running = true;
+        }
+        //  System.out.println("Стала видимой для пользователя");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        wasRunning=running;
-        running=false;
-     //   System.out.println("Скрылся");
+        wasRunning = running;
+        running = false;
+        //   System.out.println("Скрылся");
     }
 
     public void onClickStartb(View view) {
         running = true;
+        CharSequence startclicktoast = "Собщение-уведомление (Таймер запущен)";
+        int toastsequencestart = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(this, startclicktoast, toastsequencestart);
+        toast.show();
     }
 
     public void onClickStopb(View view) {
@@ -83,7 +92,7 @@ public class StopwatchActivity extends AppCompatActivity {
                 timeView.setText(time);
                 if (running) {
                     seconds++;
-                //    System.out.println("still running");
+                    //    System.out.println("still running");
                 } //else System.out.println("waiting for start timer");
                 handler.postDelayed(this, 1000);
             }
